@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KirinNova - 个人主页</title>
     
-    <!-- 使用本地同级目录下的图片作为网页标签页图标（请确保同目录下有名为 favicon.png 的图片） -->
-    <link rel="icon" type="image/png" href="./favicon.png">
+    <!-- 设置网页标签页左上角的专属图标，加入时间戳参数防止浏览器强缓存 -->
+    <link id="favicon" rel="icon" type="image/png" href="https://github.com/KirinNova.png?v=2026">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -288,6 +288,12 @@
                 document.getElementById('display-name').innerText = data.name || data.login;
                 document.getElementById('bio-text').innerText = data.bio || "宇宙无敌大牛 / 熬夜小能手";
                 document.getElementById('github-link').href = data.html_url;
+
+                // 同步更新网页标签页图标，并绑定头像地址
+                if (data.avatar_url) {
+                    const favicon = document.getElementById('favicon');
+                    favicon.href = data.avatar_url;
+                }
             } catch (err) {
                 console.error("加载 GitHub 数据出错:", err);
                 document.getElementById('bio-text').innerText = "宇宙无敌大牛 / 熬夜小能手";
