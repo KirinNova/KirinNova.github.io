@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>KirinNova - 个人主页</title>
     
-    <!-- 设置网页标签页左上角的专属图标，加入时间戳参数防止浏览器强缓存 -->
     <link id="favicon" rel="icon" type="image/png" href="https://github.com/KirinNova.png?v=2026">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -254,22 +253,21 @@
 
     <div id="fan-message" class="message-container">
         <div class="message-title">
-            <i class="fa-solid fa-terminal" style="color: var(--text-main);"></i> 致一路陪伴的粉丝朋友们
+            <i class="fa-solid fa-terminal" style="color: var(--text-main);"></i> 粉丝朋友们
         </div>
         <div class="message-content">
-            嗨!很高兴你能顺着链接来到这里。看着上面那些“平平无奇”的超神战绩（虽然水分很大，但排面绝对拉满了），其实我最想感谢的还是屏幕前的你。
+            嗨！很高兴通过某一行代码或某一个链接，与你在互联网的海洋里相遇。
         </div>
         <div class="message-content">
-            从最初写下第一行充满 Bug 的代码，到如今在开源和视频的道路上慢慢摸索，这条路并不孤单。正是因为有你们的关注、催更、点赞和硬币支持，才让我有了不断折腾下去的动力。每一次看到你们在评论区整活或者讨论技术，我都觉得所有的深夜爆肝都是值得的。
+            从最初面对报错满屏红字的焦头烂额，到如今在内核源码与编译优化中逐渐找到乐趣，这条“折腾”的路虽然偶尔需要熬夜，但因为有了你们的关注、点赞和硬币支持，它变得不再孤单。每一个点赞和反馈，都是我不断优化代码、继续前行的动力源泉。
         </div>
         <div class="message-content">
-            未来，我还会继续在代码，科技与整活的边缘疯狂试探，产出更多更有趣的项目。希望大家能继续和我一起并肩前行，冲向星辰大海！
+            未来，我依然会深耕于内核编译与技术分享，努力产出更多更稳定的作品。前路漫漫，愿我们都能保持对技术的热爱，在各自的代码世界里并肩前行，奔赴星辰大海！
         </div>
         <div class="message-content" style="font-weight: 600; color: var(--text-main); margin-bottom: 0;">
             —— KirinNova
         </div>
     </div>
-
     <div class="footer">
         Designed for KirinNova • All Rights Reserved
     </div>
@@ -283,20 +281,18 @@
                 if (!res.ok) throw new Error('Network response was not ok');
                 const data = await res.json();
 
-                // 动态获取并填充 GitHub 的真实头像、昵称和个性签名
                 document.getElementById('avatar').src = data.avatar_url;
                 document.getElementById('display-name').innerText = data.name || data.login;
-                document.getElementById('bio-text').innerText = data.bio || "宇宙无敌大牛 / 熬夜小能手";
+                document.getElementById('bio-text').innerText = data.bio || " 熬夜小能手 ";
                 document.getElementById('github-link').href = data.html_url;
 
-                // 同步更新网页标签页图标，并绑定头像地址
                 if (data.avatar_url) {
                     const favicon = document.getElementById('favicon');
                     favicon.href = data.avatar_url;
                 }
             } catch (err) {
                 console.error("加载 GitHub 数据出错:", err);
-                document.getElementById('bio-text').innerText = "宇宙无敌大牛 / 熬夜小能手";
+                document.getElementById('bio-text').innerText = " 熬夜小能手 ";
             }
         }
 
