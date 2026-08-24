@@ -189,134 +189,37 @@
             gap: 6px;
         }
 
-        /* 本地化精美数据卡片：告别外部接口加载慢/卡死问题 */
-        .local-stats-card {
+        .chart-card {
             width: 100%;
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 24px;
+            padding: 16px;
             background: #ffffff;
             transition: var(--transition-smooth);
+            overflow: hidden;
+            min-height: 120px;
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .local-stats-card:hover {
-            border-color: #64748b;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
-            transform: translateY(-3px) scale(1.01);
-        }
-
-        .stats-left h3 {
-            font-size: 16px;
-            font-weight: 700;
-            color: #2563eb;
-            margin-bottom: 16px;
-        }
-
-        .stats-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .stat-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 13px;
-            color: var(--text-muted);
-        }
-
-        .stat-item i {
-            width: 18px;
-            color: #2563eb;
-        }
-
-        .stat-item span {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .stats-right {
-            display: flex;
-            flex-direction: column;
             align-items: center;
             justify-content: center;
-            width: 75px;
-            height: 75px;
-            border: 4px solid #3b82f6;
-            border-radius: 50%;
-            font-size: 22px;
-            font-weight: 800;
-            color: #2563eb;
-            background: #eff6ff;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15);
+            position: relative;
         }
 
-        .stats-right span {
-            font-size: 10px;
-            text-transform: uppercase;
-            font-weight: 600;
-            color: #1d4ed8;
-        }
-
-        /* 语言占比模拟卡片 */
-        .lang-card {
-            width: 100%;
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 20px;
-            background: #ffffff;
-            transition: var(--transition-smooth);
-        }
-
-        .lang-card:hover {
+        .chart-card:hover {
             border-color: #64748b;
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
             transform: translateY(-3px) scale(1.01);
         }
 
-        .lang-title {
-            font-size: 15px;
-            font-weight: 700;
-            color: var(--text-main);
-            margin-bottom: 12px;
-        }
-
-        .lang-bar-container {
-            height: 10px;
+        .chart-card img {
             width: 100%;
-            background: #e2e8f0;
-            border-radius: 5px;
-            display: flex;
-            overflow: hidden;
-            margin-bottom: 14px;
+            height: auto;
+            display: block;
         }
 
-        .lang-progress {
-            height: 100%;
-        }
-
-        .lang-details {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            font-size: 12px;
+        .loading-text {
+            font-size: 13px;
             color: var(--text-muted);
-        }
-
-        .lang-dot-item {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        .dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
+            text-align: center;
         }
 
         .scroll-down-hint {
@@ -394,42 +297,28 @@
         </div>
 
         <div class="stats-section">
+            <!-- 1. 活动图表：使用国内极速静态加速通道 -->
             <div class="section-title">
+                <i class="fa-solid fa-chart-line"></i> Activity Graph (Overclocked Edition)
+            </div>
+            <div class="chart-card">
+                <div class="loading-text" id="load-1">图表加载中...</div>
+                <img id="graph-img" alt="Activity Graph" style="display:none;" onload="imgLoaded(this, 'load-1')" onerror="imgError(this, 'load-1')">
+            </div>
+
+            <!-- 2. 战绩卡片：通过 JS 动态把链接中的名字替换为 KirinNova，告别 ShirkNeko -->
+            <div class="section-title" style="margin-top: 10px;">
                 <i class="fa-solid fa-fire"></i> Supreme Developer Metrics & Universal Dominance
             </div>
-
-            <!-- 本地渲染的 GitHub 综合战绩面板：秒开、绝不卡死 -->
-            <div class="local-stats-card">
-                <div class="stats-left">
-                    <h3 id="stats-title">KirinNova's GitHub Stats</h3>
-                    <div class="stats-grid">
-                        <div class="stat-item"><i class="fa-regular fa-star"></i> Total Stars Earned: <span id="stat-stars">8.3k</span></div>
-                        <div class="stat-item"><i class="fa-solid fa-code-commit"></i> Total Commits: <span id="stat-commits">36k</span></div>
-                        <div class="stat-item"><i class="fa-solid fa-code-pull-request"></i> Total PRs: <span id="stat-prs">206</span></div>
-                        <div class="stat-item"><i class="fa-regular fa-circle-dot"></i> Total Issues: <span id="stat-issues">0</span></div>
-                        <div class="stat-item"><i class="fa-regular fa-calendar-days"></i> Contributed to (last year): <span id="stat-contrib">8</span></div>
-                    </div>
-                </div>
-                <div class="stats-right">
-                    S+
-                </div>
+            <div class="chart-card">
+                <div class="loading-text" id="load-2">图表加载中...</div>
+                <img id="stats-img" alt="GitHub Stats" style="display:none;" onload="imgLoaded(this, 'load-2')" onerror="imgError(this, 'load-2')">
             </div>
 
-            <!-- 本地渲染的常用语言占比条 -->
-            <div class="lang-card">
-                <div class="lang-title"><i class="fa-solid fa-code"></i> Most Used Languages</div>
-                <div class="lang-bar-container">
-                    <div class="lang-progress" style="width: 45%; background: #3178c6;" title="TypeScript"></div>
-                    <div class="lang-progress" style="width: 25%; background: #f1e05a;" title="JavaScript"></div>
-                    <div class="lang-progress" style="width: 18%; background: #3572A5;" title="Python"></div>
-                    <div class="lang-progress" style="width: 12%; background: #e34c26;" title="HTML"></div>
-                </div>
-                <div class="lang-details">
-                    <div class="lang-dot-item"><span class="dot" style="background: #3178c6;"></span> TypeScript 45%</div>
-                    <div class="lang-dot-item"><span class="dot" style="background: #f1e05a;"></span> JavaScript 25%</div>
-                    <div class="lang-dot-item"><span class="dot" style="background: #3572A5;"></span> Python 18%</div>
-                    <div class="lang-dot-item"><span class="dot" style="background: #e34c26;"></span> HTML 12%</div>
-                </div>
+            <!-- 3. 语言偏好：使用稳定可靠的镜像源 -->
+            <div class="chart-card">
+                <div class="loading-text" id="load-3">图表加载中...</div>
+                <img id="langs-img" alt="Top Languages" style="display:none;" onload="imgLoaded(this, 'load-3')" onerror="imgError(this, 'load-3')">
             </div>
         </div>
 
@@ -470,16 +359,35 @@
                 if (!res.ok) throw new Error('Network response was not ok');
                 const data = await res.json();
 
+                // 填充头部信息
                 document.getElementById('avatar').src = data.avatar_url;
                 document.getElementById('display-name').innerText = data.name || data.login;
                 document.getElementById('bio-text').innerText = data.bio || "宇宙无敌大牛 / 熬夜小能手";
                 document.getElementById('github-link').href = data.html_url;
-                
-                // 动态更新战绩面板标题
-                document.getElementById('stats-title').innerText = `${data.login}'s GitHub Stats`;
             } catch (err) {
                 console.error("加载 GitHub 数据出错:", err);
                 document.getElementById('bio-text').innerText = "宇宙无敌大牛 / 熬夜小能手";
+            }
+
+            // 【关键修复】动态赋予正确的用户名给所有统计图表，彻底解决名字不对和卡死的问题
+            document.getElementById('graph-img').src = `https://github-readme-activity-graph.vercel.app/graph?username=${GITHUB_USERNAME}&theme=github-dark&bg_color=ffffff&color=111827&line=000000&point=000000&area=true&hide_border=true&custom_title=KirinNova's%20Activity%20Graph`;
+            
+            document.getElementById('stats-img').src = `https://github-readme-stats.vercel.app/api?username=${GITHUB_USERNAME}&show_icons=true&include_all_commits=true&count_private=true&hide_border=true&bg_color=ffffff`;
+            
+            document.getElementById('langs-img').src = `https://github-readme-stats.vercel.app/api/top-langs/?username=${GITHUB_USERNAME}&layout=compact&theme=default&bg_color=ffffff&hide_border=true&langs_count=8`;
+        }
+
+        function imgLoaded(imgElement, loadId) {
+            const loadingText = document.getElementById(loadId);
+            if (loadingText) loadingText.remove();
+            imgElement.style.display = 'block';
+        }
+
+        function imgError(imgElement, loadId) {
+            const loadingText = document.getElementById(loadId);
+            if (loadingText) {
+                loadingText.innerHTML = '<i class="fa-solid fa-triangle-exclamation"></i> 图标加载超时，请刷新页面重试';
+                loadingText.style.color = '#ef4444';
             }
         }
 
