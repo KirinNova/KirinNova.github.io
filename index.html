@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KirinNova - 个人主页</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    
+    <style>
+        :root {
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --transition-smooth: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 60px 20px 100px 20px;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        .profile-container, .message-container {
+            width: 100%;
+            max-width: 680px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 24px;
+            padding: 48px 40px;
+            box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            transition: var(--transition-smooth);
+        }
+
+        .profile-container {
+            margin-bottom: 35px;
+        }
+
+        .message-container {
+            animation-delay: 0.15s;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .profile-container:hover, .message-container:hover {
+            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.08);
+            transform: translateY(-4px);
+            border-color: #cbd5e1;
+        }
+
+        .profile-header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .avatar-wrapper {
+            position: relative;
+            width: 110px;
+            height: 110px;
+            margin-bottom: 20px;
+            border-radius: 50%;
+            padding: 3px;
+            background: linear-gradient(135deg, #0f172a, #64748b);
+            animation: floatAvatar 6s ease-in-out infinite, pulseGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes floatAvatar {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(15, 23, 42, 0.1); }
+            50% { box-shadow: 0 0 20px 4px rgba(15, 23, 42, 0.15); }
+        }
+
+        .avatar-wrapper img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            background: #ffffff;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .avatar-wrapper:hover img {
+            transform: scale(1.05) rotate(3deg);
+        }
+
+        .username {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin-bottom: 8px;
+        }
+
+        .bio {
+            font-size: 14px;
+            color: var(--text-muted);
+            max-width: 420px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .action-links {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+
+        .icon-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            background: #0f172a;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 16px;
+            font-size: 20px;
+            box-shadow: 0 4px 12px rgba(15, 23, 42, 0.15);
+            transition: var(--transition-smooth);
+        }
+
+        .icon-btn:hover {
+            transform: translateY(-5px) scale(1.1) rotate(5deg);
+            box-shadow: 0 10px 25px rgba(15, 23, 42, 0.3);
+            background: #000000;
+        }
+
+        .icon-btn.bilibili {
+            background: #fb7299;
+            box-shadow: 0 4px 12px rgba(251, 114, 153, 0.25);
+        }
+
+        .icon-btn.bilibili:hover {
+            background: #ff5c8a;
+            box-shadow: 0 10px 25px rgba(251, 114, 153, 0.45);
+        }
+
+        .stats-section {
+            border-top: 1px solid var(--border-color);
+            padding-top: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .section-title {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: var(--text-muted);
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .chart-card {
+            width: 100%;
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 16px;
+            background: #ffffff;
+            transition: var(--transition-smooth);
+            overflow: hidden;
+            min-height: 120px; /* 防止图片加载时高度塌陷 */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .chart-card:hover {
+            border-color: #64748b;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+            transform: translateY(-3px) scale(1.01);
+        }
+
+        .chart-card img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .scroll-down-hint {
+            text-align: center;
+            margin-top: 35px;
+            font-size: 13px;
+            color: var(--text-muted);
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            transition: color 0.3s;
+        }
+
+        .scroll-down-hint:hover {
+            color: var(--text-main);
+        }
+
+        .scroll-down-hint i {
+            animation: customBounce 2s infinite ease-in-out;
+        }
+
+        @keyframes customBounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(8px); }
+            60% { transform: translateY(4px); }
+        }
+
+        .message-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            letter-spacing: -0.3px;
+        }
+
+        .message-content {
+            font-size: 14px;
+            color: var(--text-muted);
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #94a3b8;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="profile-container">
+        <div class="profile-header">
+            <div class="avatar-wrapper">
+                <img id="avatar" src="https://github.com/github.png" alt="KirinNova Avatar">
+            </div>
+            <h1 class="username" id="display-name">KirinNova</h1>
+            <p class="bio" id="bio-text">正在从 GitHub 同步个人简介...</p>
+            
+            <div class="action-links">
+                <a id="github-link" href="https://github.com/KirinNova" target="_blank" class="icon-btn" title="GitHub 主页">
+                    <i class="fa-brands fa-github"></i>
+                </a>
+                <a href="https://space.bilibili.com/3493144888871361" target="_blank" class="icon-btn bilibili" title="Bilibili 个人空间">
+                    <i class="fa-brands fa-bilibili"></i>
+                </a>
+            </div>
+        </div>
+
+        <div class="stats-section">
+            <div class="section-title">
+                <i class="fa-solid fa-chart-line"></i> Activity Graph (Overclocked Edition)
+            </div>
+            <div class="chart-card">
+                <!-- 优化：增加 loading="lazy" 懒加载，不卡首屏 -->
+                <img src="https://github-readme-activity-graph.vercel.app/graph?username=KirinNova&theme=github-dark&bg_color=ffffff&color=111827&line=000000&point=000000&area=true&hide_border=true&custom_title=Legendary%20Contribution%20Matrix" alt="Activity Graph" loading="lazy">
+            </div>
+
+            <div class="section-title" style="margin-top: 10px;">
+                <i class="fa-solid fa-fire"></i> Supreme Developer Metrics & Universal Dominance
+            </div>
+            <div class="chart-card">
+                <img src="https://camo.githubusercontent.com/61ea53b152921caac39109309aae856cfbd6ee1df447081c7da24586154be80b/68747470733a2f2f6769746875622d726561646d652d73746174732d6f6e652d626963652e76657263656c2e6170702f6170693f757365726e616d653d536869726b4e656b6f2673686f775f69636f6e733d7472756526696e636c7564655f616c6c5f636f6d6d6974733d7472756526636f756e745f707269766174653d7472756526726f6c653d4f574e45522c4f5247414e495a4154494f4e5f4d454d4245522c434f4c4c41424f5241544f52" alt="GitHub Stats" loading="lazy">
+            </div>
+            <div class="chart-card">
+                <img src="https://github-readme-stats.vercel.app/api/top-langs/?username=KirinNova&layout=compact&theme=default&bg_color=ffffff&hide_border=true&langs_count=8" alt="Top Languages" loading="lazy">
+            </div>
+        </div>
+
+        <div class="scroll-down-hint" onclick="document.getElementById('fan-message').scrollIntoView({behavior: 'smooth'})">
+            <span>下滑查看致粉丝朋友们的寄语</span>
+            <i class="fa-solid fa-chevron-down"></i>
+        </div>
+    </div>
+
+    <div id="fan-message" class="message-container">
+        <div class="message-title">
+            <i class="fa-solid fa-terminal" style="color: var(--text-main);"></i> 致一路陪伴的粉丝朋友们
+        </div>
+        <div class="message-content">
+            嗨!很高兴你能顺着链接来到这里。看着上面那些“平平无奇”的超神战绩（虽然水分很大，但排面绝对拉满了），其实我最想感谢的还是屏幕前的你。
+        </div>
+        <div class="message-content">
+            从最初写下第一行充满 Bug 的代码，到如今在开源和视频的道路上慢慢摸索，这条路并不孤单。正是因为有你们的关注、催更、点赞和硬币支持，才让我有了不断折腾下去的动力。每一次看到你们在评论区整活或者讨论技术，我都觉得所有的深夜爆肝都是值得的。
+        </div>
+        <div class="message-content">
+            未来，我还会继续在代码，科技与整活的边缘疯狂试探，产出更多更有趣的项目。希望大家能继续和我一起并肩前行，冲向星辰大海！
+        </div>
+        <div class="message-content" style="font-weight: 600; color: var(--text-main); margin-bottom: 0;">
+            —— KirinNova
+        </div>
+    </div>
+
+    <div class="footer">
+        Designed for KirinNova • All Rights Reserved
+    </div>
+
+    <script>
+        const GITHUB_USERNAME = "KirinNova"; 
+
+        async function loadGitHubData() {
+            try {
+                const res = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`);
+                if (!res.ok) throw new Error('Network response was not ok');
+                const data = await res.json();
+
+                document.getElementById('avatar').src = data.avatar_url;
+                document.getElementById('display-name').innerText = data.name || data.login;
+                document.getElementById('bio-text').innerText = data.bio || "宇宙无敌大牛 / 熬夜小能手";
+                document.getElementById('github-link').href = data.html_url;
+            } catch (err) {
+                console.error("加载 GitHub 数据出错:", err);
+                document.getElementById('bio-text').innerText = "宇宙无敌大牛 / 熬夜小能手";
+            }
+        }
+
+        loadGitHubData();
+    </script>
+</body>
+</html>
